@@ -1,21 +1,15 @@
-require 'ostruct'
-require 'json'
 require 'active_support/core_ext/class'
+require 'active_support/core_ext/module'
 
 module HealthCheckInterceptor
   class Default
-    class_attribute :configuration,
-                    instance_write: false,
-                    default: OpenStruct.new(
-                      url_pattern: %r{(\/|\/are_you_alive)$},
-                      response_code: 200,
-                      headers: {},
-                      body: [{ message: 'I am alive.' }.to_json]
-                    )
-    alias config configuration
+    class_attribute :configurable,
+                    instance_write: false
 
-    def self.configure(&block)
-      block.yield(configuration)
+    self.configurable = HealthCheckInterceptor::Configuration.configs
+
+    class << self
+      delegate :configure, :configuration, to: :configurable
     end
 
     def initialize(app)
@@ -28,6 +22,10 @@ module HealthCheckInterceptor
       else
         @app.call(env)
       end
+    end
+
+    def config
+      self.class.configurable.configuration
     end
   end
 end
