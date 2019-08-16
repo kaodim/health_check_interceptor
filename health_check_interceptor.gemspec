@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "health_check_interceptor"
   spec.version       = HealthCheckInterceptor::VERSION
   spec.authors       = ["khun84"]
-  spec.email         = ["khun84@gmail.com"]
+  spec.email         = ["daniel.lee@kaodim.com"]
 
   spec.summary       = %q{A simple middleware to interceptor health check request and respond to it.}
   spec.description   = %q{An middleware to interceptor health check request to prevent it going any point further thus reduce server resource consumption.}
-  spec.homepage      = "https://github.com/khun84/health_check_interceptor"
+  spec.homepage      = "https://github.com/kaodim/health_check_interceptor"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
